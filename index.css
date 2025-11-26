@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Orb Animations */
+.orb-gradient-1 {
+  background-image: linear-gradient(to bottom right, var(--color-primary-start), var(--color-primary-end));
+}
+
+.orb-gradient-2 {
+  background-image: linear-gradient(to top right, var(--color-primary-start), transparent, var(--color-primary-end));
+}
+
+@keyframes pulse-custom {
+
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes spin-custom {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shimmer-custom {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-pulse-orb {
+  animation: pulse-custom 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-spin-orb {
+  animation: spin-custom 3s linear infinite;
+}
+
+.animate-shimmer-orb {
+  animation: shimmer-custom 1.5s infinite;
+  background-image: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+}
