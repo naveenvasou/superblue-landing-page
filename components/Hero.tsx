@@ -36,8 +36,8 @@ const Hero: React.FC = () => {
 
         {/* Main Heading matching the 'Wonderful' layout */}
         <h1 className="text-[2rem] md:text-[4rem] lg:text-[5rem] font-normal tracking-tight text-slate-900 leading-[1.1] mb-12">
-          Voice AI That Talk Like Humans and  <br />
-          Scale Like Machines.
+          Voice AI That Talk Like Humans  <br />
+          And Scale Like Machines.
         </h1>
 
 
