@@ -29,7 +29,7 @@ const Navbar: React.FC = () => {
         <div className="hidden md:flex items-center space-x-10 text-[16px] text-slate-600 font-normal">
           <a href="#features" className="hover:text-slate-900 transition-colors">Features</a>
           <a href="#use-cases" className="hover:text-slate-900 transition-colors">Use Cases</a>
-          <a href="#" className="hover:text-slate-900 transition-colors">About</a>
+          
         </div>
 
         {/* CTA Button */}
@@ -52,11 +52,9 @@ const Navbar: React.FC = () => {
         <div className="absolute top-full left-0 right-0 bg-white/90 backdrop-blur-lg border-b border-slate-200/60 p-6 md:hidden flex flex-col space-y-4 shadow-lg h-screen">
           <a href="#features" className="text-xl font-medium text-slate-800">Features</a>
           <a href="#use-cases" className="text-xl font-medium text-slate-800">Use Cases</a>
-          <a href="#" className="text-xl font-medium text-slate-800">Careers</a>
-          <a href="#" className="text-xl font-medium text-slate-800">About</a>
           <div className="pt-4">
             <button className="w-full py-4 rounded-full bg-slate-900 text-white font-medium text-lg">
-              Get Started
+              Join Waitlist
             </button>
           </div>
         </div>

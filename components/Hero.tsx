@@ -31,7 +31,7 @@ const Hero: React.FC = () => {
 
         {/* The Rotating Aura - Mobile (Optimized) */}
         <div
-          className="md:hidden w-[240vw] h-[180vw] opacity-40 blur-[80px] animate-[spin_8s_linear_infinite]"
+          className="md:hidden w-[240vw] h-[240vw] opacity-50 blur-[80px] animate-[spin_8s_linear_infinite]"
           style={{
             background: `conic-gradient(
               from 0deg at 50% 50%,

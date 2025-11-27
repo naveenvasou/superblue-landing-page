@@ -13,13 +13,13 @@ const CTASection: React.FC = () => {
         </h2>
 
         <button className="group relative inline-flex items-center justify-center px-10 py-4 bg-slate-950 text-white rounded-full text-lg font-medium overflow-hidden transition-all duration-300 hover:bg-slate-900 hover:scale-105 shadow-xl hover:shadow-2xl hover:shadow-blue-900/20">
-          <span className="relative z-10">Get started</span>
+          <span className="relative z-10">Join Waitlist</span>
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </button>
       </div>
 
       {/* Watermark Background */}
-      <div className="absolute bottom-0 left-0 right-0 overflow-hidden pointer-events-none flex justify-center translate-y-[25%] select-none z-10">
+      <div className="absolute bottom-0 left-0 right-0 overflow-hidden pointer-events-none flex justify-center translate-y-[10%] select-none z-10">
         <span
           className="font-serif italic font-bold text-[22vw] leading-none tracking-tighter text-white opacity-80 mix-blend-overlay"
           style={{
