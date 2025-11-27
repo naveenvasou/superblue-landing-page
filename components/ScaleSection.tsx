@@ -43,9 +43,9 @@ const ScaleSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
 
         {/* Header */}
-        <div className="text-center mb-20">
+        <div className="text-center max-w-3xl mx-auto mb-20">
           <h2 className="text-3xl md:text-5xl font-medium tracking-tight mb-6">
-            Built for <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">Real-World Scale</span>
+            Built for <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-blue-600">Real-World Scale</span>
           </h2>
           <p className="text-slate-400 text-lg max-w-2xl mx-auto">
             Our infrastructure handles peak traffic effortlessly, ensuring your voice agent is always available and always fast.

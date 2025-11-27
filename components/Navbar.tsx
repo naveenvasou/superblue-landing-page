@@ -27,19 +27,15 @@ const Navbar: React.FC = () => {
 
         {/* Desktop Links - Centered */}
         <div className="hidden md:flex items-center space-x-10 text-[16px] text-slate-600 font-normal">
-          <a href="#" className="hover:text-slate-900 transition-colors">Product</a>
-          <div className="group relative cursor-pointer flex items-center gap-1 hover:text-slate-900 transition-colors">
-            <span>Industries</span>
-            <ChevronDown className="w-4 h-4 opacity-50" />
-          </div>
-          <a href="#" className="hover:text-slate-900 transition-colors">Careers</a>
+          <a href="#features" className="hover:text-slate-900 transition-colors">Features</a>
+          <a href="#use-cases" className="hover:text-slate-900 transition-colors">Use Cases</a>
           <a href="#" className="hover:text-slate-900 transition-colors">About</a>
         </div>
 
         {/* CTA Button */}
         <div className="hidden md:block">
           <button className="px-6 py-2.5 rounded-full border border-slate-900 text-slate-900 text-[15px] font-medium hover:border-slate-900 transition-colors duration-300">
-            Get Started
+            Join Waitlist
           </button>
         </div>
 
@@ -54,8 +50,8 @@ const Navbar: React.FC = () => {
       {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="absolute top-full left-0 right-0 bg-white/90 backdrop-blur-lg border-b border-slate-200/60 p-6 md:hidden flex flex-col space-y-4 shadow-lg h-screen">
-          <a href="#" className="text-xl font-medium text-slate-800">Product</a>
-          <a href="#" className="text-xl font-medium text-slate-800">Industries</a>
+          <a href="#features" className="text-xl font-medium text-slate-800">Features</a>
+          <a href="#use-cases" className="text-xl font-medium text-slate-800">Use Cases</a>
           <a href="#" className="text-xl font-medium text-slate-800">Careers</a>
           <a href="#" className="text-xl font-medium text-slate-800">About</a>
           <div className="pt-4">

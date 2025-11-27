@@ -172,7 +172,7 @@ const UseCasesSectionV2: React.FC = () => {
                     {/* Left Column: Compact Grid List */}
                     <div className="flex-1 lg:max-w-[55%]">
                         <div className="mb-12">
-                            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                            <h2 className="text-3xl md:text-5xl font-medium text-slate-900 mb-6 tracking-tight">
                                 Real-World Applications
                             </h2>
                             <p className="text-slate-500 text-lg">
@@ -186,8 +186,8 @@ const UseCasesSectionV2: React.FC = () => {
                                     key={item.id}
                                     onClick={() => setActiveId(item.id)}
                                     className={`cursor-pointer rounded-xl p-6 transition-all duration-200 border-2 text-left ${activeId === item.id
-                                            ? 'bg-blue-50/50 border-blue-500 shadow-sm'
-                                            : 'bg-white border-slate-100 hover:border-blue-200 hover:bg-slate-50'
+                                        ? 'bg-blue-50/50 border-blue-500 shadow-sm'
+                                        : 'bg-white border-slate-100 hover:border-blue-200 hover:bg-slate-50'
                                         }`}
                                 >
                                     <h3 className={`font-bold text-lg mb-2 ${activeId === item.id ? 'text-blue-700' : 'text-slate-900'

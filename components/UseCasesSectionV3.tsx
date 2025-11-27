@@ -275,16 +275,17 @@ const UseCaseItem = ({
 const UseCasesSectionV3: React.FC = () => {
     const [activeId1, setActiveId1] = useState(useCases[0].id);
     const [activeId2, setActiveId2] = useState(useCases[3].id);
+    const [activeMobileId, setActiveMobileId] = useState(useCases[0].id);
 
     const group1 = useCases.slice(0, 3);
     const group2 = useCases.slice(3, 6);
 
     return (
-        <section className="py-24 bg-white">
+        <section id="use-cases" className="py-24 bg-white">
             <div className="max-w-7xl mx-auto px-6 md:px-12">
 
-                <div className="text-center max-w-3xl mx-auto mb-16">
-                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                <div className="text-center max-w-3xl mx-auto mb-20">
+                    <h2 className="text-3xl md:text-5xl font-medium text-slate-900 tracking-tight mb-6">
                         Use Cases
                     </h2>
                     <p className="text-lg text-slate-500">
@@ -292,35 +293,67 @@ const UseCasesSectionV3: React.FC = () => {
                     </p>
                 </div>
 
-                <div className="space-y-24">
-                    {/* TUNING VARIABLE: gap-20 controls spacing between left and right columns */}
+                {/* Mobile View: Single List */}
+                <div className="lg:hidden space-y-3">
+                    {useCases.map((item) => (
+                        <div key={item.id}>
+                            <UseCaseItem
+                                item={item}
+                                isActive={activeMobileId === item.id}
+                                onClick={() => setActiveMobileId(item.id)}
+                            />
+                            <AnimatePresence>
+                                {activeMobileId === item.id && (
+                                    <motion.div
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: 'auto' }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        className="overflow-hidden"
+                                    >
+                                        <div className="mt-4 mb-8">
+                                            <Visualizer activeCase={item} />
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Desktop View: Split Groups */}
+                <div className="hidden lg:block space-y-24">
+                    {/* Group 1 */}
                     <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                        <div className="order-2 lg:order-1">
+                        <div className="lg:order-1">
                             <Visualizer activeCase={useCases.find(c => c.id === activeId1) || group1[0]} />
                         </div>
-                        <div className="order-1 lg:order-2">
+                        <div className="lg:order-2">
                             <div className="space-y-3">
                                 {group1.map((item) => (
-                                    <UseCaseItem
-                                        item={item}
-                                        isActive={activeId1 === item.id}
-                                        onClick={() => setActiveId1(item.id)}
-                                    />
+                                    <div key={item.id}>
+                                        <UseCaseItem
+                                            item={item}
+                                            isActive={activeId1 === item.id}
+                                            onClick={() => setActiveId1(item.id)}
+                                        />
+                                    </div>
                                 ))}
                             </div>
                         </div>
                     </div>
 
-                    {/* TUNING VARIABLE: gap-20 controls spacing between left and right columns */}
+                    {/* Group 2 */}
                     <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                         <div className="order-1">
                             <div className="space-y-0">
                                 {group2.map((item) => (
-                                    <UseCaseItem
-                                        item={item}
-                                        isActive={activeId2 === item.id}
-                                        onClick={() => setActiveId2(item.id)}
-                                    />
+                                    <div key={item.id}>
+                                        <UseCaseItem
+                                            item={item}
+                                            isActive={activeId2 === item.id}
+                                            onClick={() => setActiveId2(item.id)}
+                                        />
+                                    </div>
                                 ))}
                             </div>
                         </div>

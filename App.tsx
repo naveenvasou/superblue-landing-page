@@ -2,6 +2,7 @@
 import React from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import StatsSection from './components/StatsSection';
 import ExperienceSection from './components/ExperienceSection';
 import FeaturesSection from './components/FeaturesSection';
 import UseCasesSectionV3 from './components/UseCasesSectionV3';
@@ -18,6 +19,7 @@ const App: React.FC = () => {
       <Navbar />
       <main className="relative z-10">
         <Hero />
+        <StatsSection />
         <ExperienceSection />
         <FeaturesSection />
         <UseCasesSectionV3 />
