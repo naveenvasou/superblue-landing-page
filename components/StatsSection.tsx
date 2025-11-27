@@ -28,18 +28,18 @@ const StatsSection: React.FC = () => {
                 <div className="absolute bottom-[-20%] left-[-10%] w-[800px] h-[800px] bg-indigo-100/30 rounded-full blur-[120px]" />
             </div>
 
-            <div className="max-w-6xl mx-auto px-6 md:px-12 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-2 divide-y md:divide-y-0 md:divide-x divide-slate-200/60">
+            <div className="max-w-6xl mx-auto px-2 md:px-12 relative z-10">
+                <div className="grid grid-cols-3 gap-2 md:gap-8 divide-x divide-slate-200/60">
                     {stats.map((stat, index) => (
-                        <div key={index} className="flex items-center justify-center gap-4 py-4 md:py-0">
-                            <div className="w-12 h-12 rounded-full bg-white border border-slate-100 shadow-sm flex items-center justify-center flex-shrink-0 text-blue-600">
-                                <stat.icon size={20} strokeWidth={1.5} />
+                        <div key={index} className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 py-2 md:py-0">
+                            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white border border-slate-100 shadow-sm flex items-center justify-center flex-shrink-0 text-blue-600">
+                                <stat.icon className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />
                             </div>
-                            <div className="flex flex-col">
-                                <span className="text-xl font-semibold text-slate-900 leading-none mb-1">
+                            <div className="flex flex-col text-center md:text-left">
+                                <span className="text-sm md:text-xl font-semibold text-slate-900 leading-none mb-1">
                                     {stat.value}
                                 </span>
-                                <span className="text-xs font-medium text-slate-500 uppercase tracking-wider">
+                                <span className="text-[10px] md:text-xs font-medium text-slate-500 uppercase tracking-wider leading-tight">
                                     {stat.label}
                                 </span>
                             </div>
