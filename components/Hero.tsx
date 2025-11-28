@@ -3,7 +3,7 @@ import React from 'react';
 
 const Hero: React.FC = () => {
   return (
-    <section className="relative w-full pt-18 md:pt-48 md:pb-24 overflow-hidden flex flex-col items-center justify-center min-h-[65vh] md:min-h-[90vh] bg-white">
+    <section className="relative w-full pt-18 md:pt-48 md:pb-24 overflow-hidden flex flex-col items-center justify-center min-h-[70vh] md:min-h-[80vh] bg-white">
 
       {/* 
         Aesthetic Gradient Background 
@@ -51,20 +51,20 @@ const Hero: React.FC = () => {
       <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
 
         {/* Main Heading matching the 'Wonderful' layout */}
-        <h1 className="text-[3rem] md:text-[4rem] lg:text-[5rem] font-semibold tracking-tight text-slate-800 leading-[1.1] mb-12">
-          Your business-ready Voice AI<br />
+        <h1 className="text-[2rem] md:text-[4rem] lg:text-[4rem] font-semibold tracking-tight text-slate-800 leading-[1.3] mb-16">
+          Your business-ready Voice AI
           that outperforms humans
         </h1>
 
 
 
         {/* Buttons */}
-        <div className="my-8 flex items-center justify-center gap-4">
-          <button className="px-8 py-4 bg-slate-950 text-white rounded-full text-sm md:text-lg font-medium hover:bg-slate-800 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+        <div className="mt-8 flex flex-col md:flex-row items-center justify-center gap-4">
+          <button className="px-6 py-4 bg-slate-950 text-white rounded-full text-sm md:text-lg font-medium hover:bg-slate-800 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 w-[90%] md:w-auto">
             Join Waitlist
           </button>
 
-          <a href="#experience" className="px-8 py-4 bg-white text-slate-900 border border-slate-200 rounded-full text-sm md:text-lg font-medium hover:bg-slate-50 hover:border-slate-300 transition-all duration-300">
+          <a href="#experience" className="px-6 py-4 bg-white text-slate-900 border border-slate-900 rounded-full text-sm md:text-lg font-medium hover:bg-slate-50 hover:border-slate-300 transition-all duration-300 w-[90%] md:w-auto">
             See it in action
           </a>
         </div>

@@ -28,7 +28,7 @@ const StatsSection: React.FC = () => {
                 <div className="absolute bottom-[-20%] left-[-10%] w-[800px] h-[800px] bg-indigo-100/30 rounded-full blur-[120px]" />
             </div>
 
-            <div className="max-w-6xl mx-auto px-2 md:px-12 relative z-10">
+            <div className="mx-3 max-w-6xl mx-auto px-2 md:px-12 relative z-10">
                 <div className="grid grid-cols-3 gap-2 md:gap-8 divide-x divide-slate-200/60">
                     {stats.map((stat, index) => (
                         <div key={index} className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 py-2 md:py-0">
@@ -36,10 +36,10 @@ const StatsSection: React.FC = () => {
                                 <stat.icon className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />
                             </div>
                             <div className="flex flex-col text-center md:text-left">
-                                <span className="text-sm md:text-xl font-semibold text-slate-900 leading-none mb-1">
+                                <span className="text-xs md:text-xl font-semibold text-slate-900 leading-none mb-1">
                                     {stat.value}
                                 </span>
-                                <span className="text-[10px] md:text-xs font-medium text-slate-500 uppercase tracking-wider leading-tight">
+                                <span className="text-[8px] md:text-xs font-medium text-slate-500 tracking-wider leading-tight">
                                     {stat.label}
                                 </span>
                             </div>
