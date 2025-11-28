@@ -134,11 +134,30 @@ const ExperienceSection: React.FC = () => {
   };
 
   // Handle received audio message
+  // Handle binary audio from server (strip prefix 0x01 expected)
   const handleAudioMessage = (data: ArrayBuffer) => {
-    // First byte is prefix (0x01)
-    const audioData = data.slice(1);
-    const float32Data = convertInt16ToFloat32(audioData);
-    playAudio(float32Data);
+    if (!data || data.byteLength <= 1) return;
+    try {
+      const view = new Uint8Array(data);
+      let audioBytes = data;
+
+      // Only strip prefix if it matches AND the total length is odd.
+      // (Assuming audio data is always even length (Int16), so Prefix(1) + Audio(Even) = Odd)
+      if ((view[0] === 0x01 || view[0] === 0x02) && view.length > 1 && view.length % 2 !== 0) {
+        audioBytes = data.slice(1);
+      }
+
+      // Safeguard: Ensure byte length is even for Int16Array
+      if (audioBytes.byteLength % 2 !== 0) {
+        console.warn("Received odd-length audio buffer, trimming last byte");
+        audioBytes = audioBytes.slice(0, audioBytes.byteLength - 1);
+      }
+
+      const float32 = convertInt16ToFloat32(audioBytes);
+      playAudio(float32);
+    } catch (e) {
+      console.error("handleAudioMessage error", e);
+    }
   };
 
   // Start capturing microphone
