@@ -285,7 +285,7 @@ const UseCasesSectionV3: React.FC = () => {
             <div className="max-w-7xl mx-auto px-6 md:px-12">
 
                 <div className="text-center max-w-3xl mx-auto mb-20">
-                    <h2 className="text-3xl md:text-5xl font-medium text-slate-900 tracking-tight mb-6">
+                    <h2 className="text-3xl md:text-5xl font-semibold md:font-medium text-slate-900 tracking-tight mb-6">
                         Use Cases
                     </h2>
                     <p className="text-lg text-slate-500">

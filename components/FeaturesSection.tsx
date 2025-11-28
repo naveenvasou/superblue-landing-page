@@ -47,7 +47,7 @@ const FeaturesSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center mb-20">
-          <h2 className="text-3xl md:text-5xl font-medium text-slate-900 tracking-tight mb-6">
+          <h2 className="text-3xl md:text-5xl font-semibold md:font-medium text-slate-900 tracking-tight mb-6">
             Built for <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-blue-600">human connection,</span><br />
             engineered for scale.
           </h2>

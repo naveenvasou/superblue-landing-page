@@ -60,7 +60,22 @@ const ExperienceSection: React.FC = () => {
   const [isCallActive, setIsCallActive] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
+  const [isLanguageSelectionOpen, setIsLanguageSelectionOpen] = useState(false);
+  const [userCountry, setUserCountry] = useState<string | null>(null);
   const [connectionStatus, setConnectionStatus] = useState<'disconnected' | 'connecting' | 'connected'>('disconnected');
+
+  // Fetch user location
+  useEffect(() => {
+    fetch('https://ipapi.co/json/')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.country_code) {
+          setUserCountry(data.country_code);
+          console.log("User country detected:", data.country_code);
+        }
+      })
+      .catch(err => console.error("Error fetching location:", err));
+  }, []);
 
   // Refs for audio and socket
   const wsRef = useRef<WebSocket | null>(null);
@@ -248,14 +263,13 @@ const ExperienceSection: React.FC = () => {
   };
 
   // Connect to WebSocket
-  const handleConnect = async () => {
+  const handleConnect = async (selectedAgentId: string) => {
     try {
       setConnectionStatus('connecting');
       setIsCallActive(true);
+      setIsLanguageSelectionOpen(false); // Close selection if open
 
-      // Use Agent ID 1 as per instructions
-      const agentId = "agent_2f0jgx7x8kdu";
-      const wsUrl = `${PUBLIC_WS_URL}/${agentId}`;
+      const wsUrl = `${PUBLIC_WS_URL}/${selectedAgentId}`;
 
       const ws = new WebSocket(wsUrl);
       ws.binaryType = 'arraybuffer';
@@ -343,6 +357,7 @@ const ExperienceSection: React.FC = () => {
     setConnectionStatus('disconnected');
     setIsMuted(false);
     isMutedRef.current = false;
+    setIsLanguageSelectionOpen(false);
   };
 
   return (
@@ -351,7 +366,7 @@ const ExperienceSection: React.FC = () => {
 
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <h2 className="text-3xl md:text-5xl font-medium text-slate-900 tracking-tight mb-6">
+          <h2 className="text-3xl md:text-5xl font-semibold md:font-medium text-slate-900 tracking-tight mb-6">
             Experience our Voice AI
           </h2>
           <p className="text-slate-500 text-lg max-w-2xl mx-auto">
@@ -397,39 +412,74 @@ const ExperienceSection: React.FC = () => {
               <div className="relative z-10 flex flex-col items-center justify-between h-full w-full py-16 px-6">
 
                 {!isCallActive ? (
-                  /* Idle State */
-                  <>
-                    {/* Caller Info */}
-                    <div className="text-center space-y-2 mt-8">
-                      <div className="w-16 h-16 bg-gradient-to-tr from-blue-400 to-indigo-500 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg shadow-blue-900/50">
-                        <span className="text-2xl font-bold text-white">S</span>
+                  !isLanguageSelectionOpen ? (
+                    /* Idle State */
+                    <>
+                      {/* Caller Info */}
+                      <div className="text-center space-y-2 mt-8">
+                        <div className="w-16 h-16 bg-gradient-to-tr from-blue-400 to-indigo-500 rounded-full mx-auto mb-4 flex items-center justify-center shadow-lg shadow-blue-900/50">
+                          <span className="text-2xl font-bold text-white">S</span>
+                        </div>
+                        <h3 className="text-2xl font-semibold text-white tracking-wide">SuperBlue AI</h3>
+                        <p className="text-blue-200/80 text-sm font-medium tracking-wider uppercase animate-pulse">Incoming Call...</p>
                       </div>
-                      <h3 className="text-2xl font-semibold text-white tracking-wide">SuperBlue AI</h3>
-                      <p className="text-blue-200/80 text-sm font-medium tracking-wider uppercase animate-pulse">Incoming Call...</p>
-                    </div>
 
-                    {/* Call Action */}
-                    <div className="relative mt-auto mb-12">
-                      {/* Ripple Effects */}
-                      <div className="absolute inset-0 bg-white/10 rounded-full animate-ping delay-75"></div>
-                      <div className="absolute inset-0 bg-white/5 rounded-full animate-ping delay-300"></div>
+                      {/* Call Action */}
+                      <div className="relative mt-auto mb-12">
+                        {/* Ripple Effects */}
+                        <div className="absolute inset-0 bg-white/10 rounded-full animate-ping delay-75"></div>
+                        <div className="absolute inset-0 bg-white/5 rounded-full animate-ping delay-300"></div>
 
-                      {/* Main Button */}
+                        {/* Main Button */}
+                        <button
+                          onClick={() => setIsLanguageSelectionOpen(true)}
+                          onMouseEnter={() => setIsHovering(true)}
+                          onMouseLeave={() => setIsHovering(false)}
+                          className="relative w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:scale-110 transition-transform duration-300 cursor-pointer z-20 group"
+                        >
+                          <Phone className={`w-8 h-8 text-slate-900 fill-current transition-transform duration-300 ${isHovering ? 'rotate-12' : ''}`} />
+                        </button>
+                      </div>
+
+                      {/* Instructions */}
+                      <div className="text-center w-full space-y-6 mb-4">
+                        <p className="text-white/60 text-sm font-medium">Click to talk to the bot</p>
+                      </div>
+                    </>
+                  ) : (
+                    /* Language Selection State */
+                    <div className="flex flex-col items-center justify-center h-full w-full px-8 animate-in fade-in zoom-in-95 duration-200">
+                      <h3 className="text-base font-medium text-slate-200 mb-4">Select Language</h3>
+
+                      <div className="w-full space-y-2">
+                        {(userCountry === 'IN' ? [
+                          { id: 'agent_2f0jgx7x8kdu', label: 'English (India)' },
+                          { id: 'agent_3e2189qyrioo', label: 'Hindi' },
+                          { id: 'agent_na5f32k91tmb', label: 'Tamil' },
+                        ] : [
+                          { id: 'agent_y9104gmdhfn0', label: 'English (US)' },
+                          { id: 'agent_70xq35soecib', label: 'English (UK)' },
+                          { id: 'agent_nuezoi654f28', label: 'Spanish' },
+                          { id: 'agent_g17adt0xhogj', label: 'French' },
+                        ]).map((lang) => (
+                          <button
+                            key={lang.label}
+                            onClick={() => handleConnect(lang.id)}
+                            className="w-full bg-white/5 hover:bg-white/10 border border-white/10 rounded-md py-2.5 px-4 text-sm text-slate-200 hover:text-white transition-all text-left"
+                          >
+                            {lang.label}
+                          </button>
+                        ))}
+                      </div>
+
                       <button
-                        onClick={handleConnect}
-                        onMouseEnter={() => setIsHovering(true)}
-                        onMouseLeave={() => setIsHovering(false)}
-                        className="relative w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:scale-110 transition-transform duration-300 cursor-pointer z-20 group"
+                        onClick={() => setIsLanguageSelectionOpen(false)}
+                        className="mt-6 text-slate-400 hover:text-slate-300 text-xs transition-colors"
                       >
-                        <Phone className={`w-8 h-8 text-slate-900 fill-current transition-transform duration-300 ${isHovering ? 'rotate-12' : ''}`} />
+                        Cancel
                       </button>
                     </div>
-
-                    {/* Instructions */}
-                    <div className="text-center w-full space-y-6 mb-4">
-                      <p className="text-white/60 text-sm font-medium">Click to talk to the bot</p>
-                    </div>
-                  </>
+                  )
                 ) : (
                   /* Active Call State */
                   <div className="flex flex-col items-center justify-center h-full w-full animate-in fade-in zoom-in-95 duration-500">
