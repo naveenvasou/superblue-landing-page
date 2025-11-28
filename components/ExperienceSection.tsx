@@ -73,6 +73,7 @@ const ExperienceSection: React.FC = () => {
   // New refs for buffering and playback
   const nextStartTimeRef = useRef<number>(0);
   const inputBufferRef = useRef<Float32Array>(new Float32Array(0));
+  const playbackSourcesRef = useRef<AudioBufferSourceNode[]>([]);
 
   // Cleanup on unmount
   useEffect(() => {
@@ -80,6 +81,27 @@ const ExperienceSection: React.FC = () => {
       cleanup();
     };
   }, []);
+
+  const stopAllAssistantAudio = () => {
+    try {
+      const list = playbackSourcesRef.current;
+      for (const s of list) {
+        try {
+          s.stop();
+        } catch (_) { }
+        try {
+          s.disconnect();
+        } catch (_) { }
+      }
+      playbackSourcesRef.current = [];
+      if (audioContextRef.current) {
+        // small headroom so new audio starts cleanly
+        nextStartTimeRef.current = audioContextRef.current.currentTime + 0.02;
+      }
+    } catch (err) {
+      console.warn("stopAllAssistantAudio error:", err);
+    }
+  };
 
   // Play audio from Float32Array
   const playAudio = (audioData: Float32Array) => {
@@ -93,6 +115,9 @@ const ExperienceSection: React.FC = () => {
     source.buffer = buffer;
     source.connect(context.destination);
 
+    // Add to active sources
+    playbackSourcesRef.current.push(source);
+
     // Schedule playback
     const currentTime = context.currentTime;
     if (nextStartTimeRef.current < currentTime) {
@@ -101,6 +126,11 @@ const ExperienceSection: React.FC = () => {
 
     source.start(nextStartTimeRef.current);
     nextStartTimeRef.current += buffer.duration;
+
+    source.onended = () => {
+      playbackSourcesRef.current = playbackSourcesRef.current.filter((s) => s !== source);
+      try { source.disconnect(); } catch (_) { }
+    };
   };
 
   // Handle received audio message
@@ -227,6 +257,13 @@ const ExperienceSection: React.FC = () => {
           // Text message (transcript or control)
           try {
             const textData = JSON.parse(data);
+
+            if (textData.type === 'interrupt') {
+              console.log("Gemini detected user speaking - stopping playback");
+              stopAllAssistantAudio();
+              return;
+            }
+
             if (textData.type === 'connected') {
               console.log('Session connected:', textData.message);
             }
