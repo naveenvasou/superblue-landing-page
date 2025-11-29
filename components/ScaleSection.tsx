@@ -67,7 +67,7 @@ const ScaleSection: React.FC = () => {
 
               <div className="px-4">
                 {/* Large Value */}
-                <div className="text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tighter text-white mb-4 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                <div className="text-5xl md:text-6xl lg:text-7xl font-semibold font-heading tracking-tighter text-white mb-4 drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">
                   {stat.value}
                 </div>
 

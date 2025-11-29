@@ -36,7 +36,7 @@ const StatsSection: React.FC = () => {
                                 <stat.icon className="w-5 h-5 md:w-6 md:h-6" strokeWidth={1.5} />
                             </div>
                             <div className="flex flex-col text-center md:text-left">
-                                <span className="text-xs md:text-xl font-semibold text-slate-900 leading-none mb-1">
+                                <span className="text-xs md:text-xl font-semibold font-heading text-slate-900 leading-none mb-1">
                                     {stat.value}
                                 </span>
                                 <span className="text-[8px] md:text-xs font-medium text-slate-500 tracking-wider leading-tight">

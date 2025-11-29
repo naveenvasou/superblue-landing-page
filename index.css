@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading;
+  }
+}
+
 /* Orb Animations */
 .orb-gradient-1 {
   background-image: linear-gradient(to bottom right, var(--color-primary-start), var(--color-primary-end));
@@ -85,4 +97,3 @@
 .animation-delay-4000 {
   animation-delay: 4s;
 }
-

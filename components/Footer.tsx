@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-16">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1 pr-8">
-            <span className="text-xl font-bold tracking-tight text-white">
+            <span className="text-xl font-bold font-heading tracking-tight text-white">
               SuperBlue
             </span>
             <p className="mt-6 text-slate-400 text-sm leading-relaxed">
@@ -39,8 +39,8 @@ const Footer: React.FC = () => {
             </ul>
           </div> */}
 
-           {/* Links Column 3 */}
-           {/* <div>
+          {/* Links Column 3 */}
+          {/* <div>
             <h4 className="font-semibold text-white mb-6">Legal</h4>
             <ul className="space-y-4 text-sm text-slate-400">
               <li><a href="#" className="hover:text-blue-400 transition-colors">Privacy Policy</a></li>
@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
 
         <div className="pt-8 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-slate-500 text-sm">
-            © {new Date().getFullYear()} SuperBlue AI 
+            © {new Date().getFullYear()} SuperBlue AI
           </p>
           {/* <div className="flex items-center gap-6">
             <a href="#" className="text-slate-400 hover:text-white transition-colors"><Twitter size={20} /></a>

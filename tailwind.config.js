@@ -5,6 +5,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['"DM Sans"', 'sans-serif'],
+        heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+      },
       animation: {
         'spin-slow': 'spin-slow 60s linear infinite',
         'subtle-pulse': 'subtle-pulse 8s ease-in-out infinite',

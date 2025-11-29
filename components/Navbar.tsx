@@ -20,7 +20,7 @@ const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
         {/* Logo */}
         <div className="flex-shrink-0 flex items-center gap-1 cursor-pointer">
-          <span className="text-2xl font-semibold tracking-tight text-slate-900">
+          <span className="text-2xl font-bold font-heading tracking-tight text-slate-900">
             SuperBlue
           </span>
         </div>
@@ -29,7 +29,7 @@ const Navbar: React.FC = () => {
         <div className="hidden md:flex items-center space-x-10 text-[16px] text-slate-600 font-normal">
           <a href="#features" className="hover:text-slate-900 transition-colors">Features</a>
           <a href="#use-cases" className="hover:text-slate-900 transition-colors">Use Cases</a>
-          
+
         </div>
 
         {/* CTA Button */}

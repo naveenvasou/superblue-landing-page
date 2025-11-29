@@ -14,7 +14,7 @@ const Hero: React.FC = () => {
         {/* The Rotating Aura */}
         {/* The Rotating Aura - Desktop */}
         <div
-          className="hidden md:block w-[300vw] h-[300vw] opacity-40 blur-[150px] animate-[spin_8s_linear_infinite]"
+          className="hidden md:block w-[300vw] h-[300vw] opacity-40 blur-[150px] animate-[spin_6s_linear_infinite]"
           style={{
             background: `conic-gradient(
               from 0deg at 50% 50%,
@@ -51,9 +51,8 @@ const Hero: React.FC = () => {
       <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
 
         {/* Main Heading matching the 'Wonderful' layout */}
-        <h1 className="text-[2rem] md:text-[4rem] lg:text-[4rem] font-semibold tracking-tight text-slate-800 leading-[1.3] mb-16">
-          Your business-ready Voice AI
-          that outperforms humans
+        <h1 className="px-20 text-[2rem] md:text-[4rem] lg:text-[4rem] font-regular tracking-tight text-slate-800 leading-[1.3] mb-16">
+          Human like Voice AI — finally at a price every business can use.
         </h1>
 
 
