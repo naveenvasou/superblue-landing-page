@@ -51,8 +51,8 @@ const Hero: React.FC = () => {
       <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
 
         {/* Main Heading matching the 'Wonderful' layout */}
-        <h1 className="px-20 text-[2rem] md:text-[4rem] lg:text-[4rem] font-regular tracking-tight text-slate-800 leading-[1.3] mb-16">
-          Human like Voice AI — finally at a price every business can use.
+        <h1 className="px-4 md:px-20 text-[2rem] md:text-[4rem] lg:text-[4rem] font-regular tracking-tight text-slate-800 leading-[1.3] mb-16">
+          Human like Voice AI finally at a price every business can use.
         </h1>
 
 

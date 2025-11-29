@@ -7,7 +7,7 @@ const CTASection: React.FC = () => {
 
       {/* Content Container */}
       <div className="relative z-20 max-w-3xl mx-auto px-2 text-center">
-        <h2 className="text-3xl md:text-5xl font-medium text-slate-900 mb-14 leading-loose md:leading-[1.5] tracking-tight ">
+        <h2 className="px-6 md:px-2 text-3xl md:text-5xl font-medium text-slate-900 mb-14 leading-[1.2] md:leading-[1.5] tracking-tight ">
           Transform your customer interactions <br className="hidden md:block" />
           with SuperBlue AI agents
         </h2>
