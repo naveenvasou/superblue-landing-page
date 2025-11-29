@@ -1,7 +1,9 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 const Hero: React.FC = () => {
+  const navigate = useNavigate();
   return (
     <section className="relative w-full pt-18 md:pt-48 md:pb-24 overflow-hidden flex flex-col items-center justify-center min-h-[70vh] md:min-h-[80vh] bg-white">
 
@@ -59,7 +61,10 @@ const Hero: React.FC = () => {
 
         {/* Buttons */}
         <div className="mt-8 flex flex-col md:flex-row items-center justify-center gap-4">
-          <button className="px-6 py-4 bg-slate-950 text-white rounded-full text-sm md:text-lg font-medium hover:bg-slate-800 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 w-[90%] md:w-auto">
+          <button
+            onClick={() => navigate('/waitlist')}
+            className="px-6 py-4 bg-slate-950 text-white rounded-full text-sm md:text-lg font-medium hover:bg-slate-800 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 w-[90%] md:w-auto"
+          >
             Join Waitlist
           </button>
 
