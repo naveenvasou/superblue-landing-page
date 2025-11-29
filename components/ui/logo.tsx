@@ -6,6 +6,9 @@ interface SuperblueLogoProps {
 }
 
 export default function SuperblueLogo({ className = "w-10 h-10", withText = false }: SuperblueLogoProps) {
+    const glowId = React.useId();
+    const gradientId = React.useId();
+
     return (
         <div className="flex items-center gap-2">
             <svg
@@ -14,7 +17,7 @@ export default function SuperblueLogo({ className = "w-10 h-10", withText = fals
                 xmlns="http://www.w3.org/2000/svg"
             >
                 <defs>
-                    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+                    <filter id={glowId} x="-50%" y="-50%" width="200%" height="200%">
                         <feGaussianBlur stdDeviation="8" result="coloredBlur" />
                         <feMerge>
                             <feMergeNode in="coloredBlur" />
@@ -22,7 +25,7 @@ export default function SuperblueLogo({ className = "w-10 h-10", withText = fals
                         </feMerge>
                     </filter>
 
-                    <radialGradient id="premiumGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                    <radialGradient id={gradientId} cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
                         <stop offset="0%" stopColor="#60a5fa" stopOpacity="0" />
                         <stop offset="40%" stopColor="#3b82f6" stopOpacity="0.1" />
                         <stop offset="60%" stopColor="#2563eb" stopOpacity="0.6" />
@@ -35,9 +38,8 @@ export default function SuperblueLogo({ className = "w-10 h-10", withText = fals
                     cx="150"
                     cy="150"
                     r="120"
-                    fill="url(#premiumGradient)"
-                    filter="url(#softGlow)"
-                    className="animate-pulse-slow"
+                    fill={`url(#${gradientId})`}
+                    filter={`url(#${glowId})`}
                 />
 
                 {/* Inner subtle ring for detail */}
@@ -46,10 +48,10 @@ export default function SuperblueLogo({ className = "w-10 h-10", withText = fals
                     cy="150"
                     r="90"
                     fill="none"
-                    stroke="url(#premiumGradient)"
+                    stroke={`url(#${gradientId})`}
                     strokeWidth="2"
                     strokeOpacity="0.5"
-                    filter="url(#softGlow)"
+                    filter={`url(#${glowId})`}
                 />
             </svg>
 

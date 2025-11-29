@@ -1,56 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SuperBlue</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100..1000&family=Plus+Jakarta+Sans:wght@200..800&display=swap" rel="stylesheet">
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['"DM Sans"', 'sans-serif'],
-              heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SuperBlue</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100..1000&family=Plus+Jakarta+Sans:wght@200..800&display=swap"
+    rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"DM Sans"', 'sans-serif'],
+            heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            superblue: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              300: '#7dd3fc',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+            }
+          },
+          keyframes: {
+            spin: {
+              "0%": { transform: "rotate(0deg)" },
+              "100%": { transform: "rotate(360deg)" },
             },
-            colors: {
-              superblue: {
-                50: '#f0f9ff',
-                100: '#e0f2fe',
-                200: '#bae6fd',
-                300: '#7dd3fc',
-                400: '#38bdf8',
-                500: '#0ea5e9',
-                600: '#0284c7',
-                700: '#0369a1',
-                800: '#075985',
-                900: '#0c4a6e',
-              }
-            },
-            animation: {
-              "spin-slow": "spin 60s linear infinite",
-              "spin-reverse-slow": "spin-reverse 60s linear infinite",
-            },
-            keyframes: {
-              spin: {
-                "0%": { transform: "rotate(0deg)" },
-                "100%": { transform: "rotate(360deg)" },
-              },
-              "spin-reverse": {
-                "0%": { transform: "rotate(0deg)" },
-                "100%": { transform: "rotate(-360deg)" },
-              },
+            "spin-reverse": {
+              "0%": { transform: "rotate(0deg)" },
+              "100%": { transform: "rotate(-360deg)" },
             },
           },
+          animation: {
+            "spin-slow": "spin 60s linear infinite",
+            "spin-reverse-slow": "spin-reverse 60s linear infinite",
+          },
         },
-      };
-    </script>
-    <style>
-      body {
-        background-color: #ffffff;
-      }
-    </style>
+      },
+    };
+  </script>
+  <style>
+    body {
+      background-color: #ffffff;
+    }
+  </style>
   <script type="importmap">
 {
   "imports": {
@@ -61,10 +64,12 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
+  <link rel="stylesheet" href="/index.css">
 </head>
-  <body>
-    <div id="root"></div>
+
+<body>
+  <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>
+
 </html>
