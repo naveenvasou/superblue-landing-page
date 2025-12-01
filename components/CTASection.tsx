@@ -18,7 +18,7 @@ const CTASection: React.FC = () => {
           onClick={() => navigate('/waitlist')}
           className="group relative inline-flex items-center justify-center px-10 py-4 bg-slate-950 text-white rounded-full text-lg font-medium overflow-hidden transition-all duration-300 hover:bg-slate-900 hover:scale-105 shadow-xl hover:shadow-2xl hover:shadow-blue-900/20"
         >
-          <span className="relative z-10">Join Waitlist</span>
+          <span className="relative z-10">Book a demo</span>
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </button>
       </div>

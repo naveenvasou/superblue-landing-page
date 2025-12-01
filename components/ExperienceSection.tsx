@@ -240,10 +240,10 @@ const ExperienceSection: React.FC = () => {
       const ws = new WebSocket(wsUrl);
       ws.binaryType = 'arraybuffer';
 
-      ws.onopen = () => {
+      ws.onopen = async () => {
         console.log('Connected to voice service');
+        await startAudioCapture();
         setConnectionStatus('connected');
-        startAudioCapture();
       };
 
       ws.onmessage = async (event) => {

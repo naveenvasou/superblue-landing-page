@@ -59,7 +59,7 @@ const Navbar: React.FC = () => {
               onClick={() => navigate('/waitlist')}
               className="px-6 py-2.5 rounded-full border border-slate-900 text-slate-900 text-[15px] font-medium hover:border-slate-900 transition-colors duration-300"
             >
-              Join Waitlist
+              Book a demo
             </button>
           </div>
 
@@ -86,7 +86,7 @@ const Navbar: React.FC = () => {
               }}
               className="w-full py-4 rounded-full bg-slate-900 text-white font-medium text-lg"
             >
-              Join Waitlist
+              Book a demo
             </button>
           </div>
         </div>
