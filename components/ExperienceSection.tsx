@@ -326,14 +326,14 @@ const ExperienceSection: React.FC = () => {
   };
 
   return (
-    <section id="experience" className="w-full py-16 md:py-24 bg-white relative overflow-hidden">
+    <section id="experience" className="w-full py-16 md:py-24 bg-white relative overflow-hidden" aria-labelledby="experience-heading">
       <div className="max-w-7xl mx-auto px-6 flex flex-col items-center">
 
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <h2 className="text-3xl md:text-5xl font-semibold md:font-medium text-slate-900 tracking-tight mb-6">
-            Experience our Voice AI
-          </h2>
+         {/* Section Header */}
+         <div className="text-center max-w-3xl mx-auto mb-20">
+           <h2 id="experience-heading" className="text-3xl md:text-5xl font-semibold md:font-medium text-slate-900 tracking-tight mb-6">
+             Experience our Voice AI
+           </h2>
           <p className="text-slate-500 text-lg max-w-2xl mx-auto">
             See how natural and responsive our agents are. Give it a try.
           </p>
@@ -400,9 +400,10 @@ const ExperienceSection: React.FC = () => {
                           onClick={() => setIsLanguageSelectionOpen(true)}
                           onMouseEnter={() => setIsHovering(true)}
                           onMouseLeave={() => setIsHovering(false)}
-                          className="relative w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:scale-110 transition-transform duration-300 cursor-pointer z-20 group"
+                          className="relative w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:scale-110 transition-transform duration-300 cursor-pointer z-20 group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
+                          aria-label="Accept incoming call from SuperBlue AI"
                         >
-                          <Phone className={`w-8 h-8 text-slate-900 fill-current transition-transform duration-300 ${isHovering ? 'rotate-12' : ''}`} />
+                          <Phone className={`w-8 h-8 text-slate-900 fill-current transition-transform duration-300 ${isHovering ? 'rotate-12' : ''}`} aria-hidden="true" />
                         </button>
                       </div>
 
@@ -413,10 +414,10 @@ const ExperienceSection: React.FC = () => {
                     </>
                   ) : (
                     /* Language Selection State */
-                    <div className="flex flex-col items-center justify-center h-full w-full px-8 animate-in fade-in zoom-in-95 duration-200">
-                      <h3 className="text-base font-medium text-slate-200 mb-4">Select Language</h3>
+                    <fieldset className="flex flex-col items-center justify-center h-full w-full px-8 animate-in fade-in zoom-in-95 duration-200">
+                      <legend className="text-base font-medium text-slate-200 mb-4">Select a language to start the call</legend>
 
-                      <div className="w-full space-y-2">
+                      <div className="w-full space-y-2" role="group">
                         {(userCountry === 'IN' ? [
                           { id: 'agent_2f0jgx7x8kdu', label: 'English (India)' },
                           { id: 'agent_3e2189qyrioo', label: 'Hindi' },
@@ -430,7 +431,8 @@ const ExperienceSection: React.FC = () => {
                           <button
                             key={lang.label}
                             onClick={() => handleConnect(lang.id)}
-                            className="w-full bg-white/5 hover:bg-white/10 border border-white/10 rounded-md py-2.5 px-4 text-sm text-slate-200 hover:text-white transition-all text-left"
+                            className="w-full bg-white/5 hover:bg-white/10 border border-white/10 rounded-md py-2.5 px-4 text-sm text-slate-200 hover:text-white transition-all text-left focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white"
+                            aria-label={`Start call in ${lang.label}`}
                           >
                             {lang.label}
                           </button>
@@ -439,11 +441,12 @@ const ExperienceSection: React.FC = () => {
 
                       <button
                         onClick={() => setIsLanguageSelectionOpen(false)}
-                        className="mt-6 text-slate-400 hover:text-slate-300 text-xs transition-colors"
+                        className="mt-6 text-slate-400 hover:text-slate-300 text-xs transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-400 rounded px-2 py-1"
+                        aria-label="Cancel and return to call screen"
                       >
                         Cancel
                       </button>
-                    </div>
+                    </fieldset>
                   )
                 ) : (
                   /* Active Call State */
@@ -460,7 +463,7 @@ const ExperienceSection: React.FC = () => {
                     </div>
 
                     {/* Controls */}
-                    <div className="flex items-center justify-between w-full px-4 gap-6">
+                    <div className="flex items-center justify-between w-full px-4 gap-6" role="toolbar" aria-label="Call controls">
                       <div className="flex flex-col items-center gap-2">
                         <button
                           onClick={() => {
@@ -475,9 +478,11 @@ const ExperienceSection: React.FC = () => {
                               });
                             }
                           }}
-                          className={`w-14 h-14 rounded-full flex items-center justify-center transition-all duration-200 ${isMuted ? 'bg-white text-slate-900' : 'bg-white/10 text-white hover:bg-white/20'}`}
+                          className={`w-14 h-14 rounded-full flex items-center justify-center transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white ${isMuted ? 'bg-white text-slate-900' : 'bg-white/10 text-white hover:bg-white/20'}`}
+                          aria-label={isMuted ? 'Unmute microphone' : 'Mute microphone'}
+                          aria-pressed={isMuted}
                         >
-                          <Mic size={24} />
+                          <Mic size={24} aria-hidden="true" />
                         </button>
                         <span className="text-xs text-white/60 font-medium">Mute</span>
                       </div>
@@ -485,9 +490,10 @@ const ExperienceSection: React.FC = () => {
                       <div className="flex flex-col items-center gap-2">
                         <button
                           onClick={handleEndCall}
-                          className="w-14 h-14 rounded-full bg-red-500 hover:bg-red-600 flex items-center justify-center text-white transition-all shadow-lg hover:shadow-red-500/50 hover:scale-105 active:scale-95"
+                          className="w-14 h-14 rounded-full bg-red-500 hover:bg-red-600 flex items-center justify-center text-white transition-all shadow-lg hover:shadow-red-500/50 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                          aria-label="End the call"
                         >
-                          <PhoneOff size={24} />
+                          <PhoneOff size={24} aria-hidden="true" />
                         </button>
                         <span className="text-xs text-white/60 font-medium">End</span>
                       </div>

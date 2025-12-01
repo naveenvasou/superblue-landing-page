@@ -16,15 +16,16 @@ const CTASection: React.FC = () => {
 
         <button
           onClick={() => navigate('/waitlist')}
-          className="group relative inline-flex items-center justify-center px-10 py-4 bg-slate-950 text-white rounded-full text-lg font-medium overflow-hidden transition-all duration-300 hover:bg-slate-900 hover:scale-105 shadow-xl hover:shadow-2xl hover:shadow-blue-900/20"
+          className="group relative inline-flex items-center justify-center px-10 py-4 bg-slate-950 text-white rounded-full text-lg font-medium overflow-hidden transition-all duration-300 hover:bg-slate-900 hover:scale-105 shadow-xl hover:shadow-2xl hover:shadow-blue-900/20 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-950"
+          aria-label="Join the waitlist for SuperBlue AI"
         >
           <span className="relative z-10">Join Waitlist</span>
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true" />
         </button>
       </div>
 
       {/* Watermark Background */}
-      <div className="absolute bottom-0 left-0 right-0 overflow-hidden pointer-events-none flex justify-center translate-y-[10%] select-none z-10">
+      <div className="absolute bottom-0 left-0 right-0 overflow-hidden pointer-events-none flex justify-center translate-y-[10%] select-none z-10" aria-hidden="true">
         <span
           className="font-heading italic font-bold text-[22vw] leading-none tracking-tighter text-white opacity-80 mix-blend-overlay"
           style={{
@@ -36,7 +37,7 @@ const CTASection: React.FC = () => {
       </div>
 
       {/* Subtle bottom fade to ensure page ends cleanly if desired, though watermark is the feature */}
-      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-blue-100/50 to-transparent pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-blue-100/50 to-transparent pointer-events-none" aria-hidden="true"></div>
     </section>
   );
 };

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+
+Sitemap: https://superblue.ai/sitemap.xml
+
+# Crawl delay to prevent server overload
+Crawl-delay: 0.5

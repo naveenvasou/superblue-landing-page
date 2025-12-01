@@ -5,14 +5,14 @@ import { useNavigate } from 'react-router-dom';
 const Hero: React.FC = () => {
   const navigate = useNavigate();
   return (
-    <section className="relative w-full pt-18 md:pt-48 md:pb-24 overflow-hidden flex flex-col items-center justify-center min-h-[70vh] md:min-h-[80vh] bg-white">
+    <section className="relative w-full pt-18 md:pt-48 md:pb-24 overflow-hidden flex flex-col items-center justify-center min-h-[70vh] md:min-h-[80vh] bg-white" aria-label="Hero section">
 
       {/* 
         Aesthetic Gradient Background 
         Strategy: Use a massive Conic Gradient that rotates. 
         This creates the "going around" effect in a predictable, circular way.
       */}
-      <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none">
+      <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none" aria-hidden="true">
         {/* The Rotating Aura */}
         {/* The Rotating Aura - Desktop */}
         <div
@@ -47,35 +47,36 @@ const Hero: React.FC = () => {
         />
 
         {/* Central White Glow to improve text readability and softness */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-white/60 md:to-white/90"></div>
-      </div>
-
-      <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
-
-        {/* Main Heading matching the 'Wonderful' layout */}
-        <h1 className="px-4 md:px-20 text-[2rem] md:text-[4rem] lg:text-[4rem] font-regular tracking-tight text-slate-800 leading-[1.3] mb-16">
-          Human like Voice AI finally at a price every business can use.
-        </h1>
-
-
-
-        {/* Buttons */}
-        <div className="mt-8 flex flex-col md:flex-row items-center justify-center gap-4">
-          <button
-            onClick={() => navigate('/waitlist')}
-            className="px-6 py-4 bg-slate-950 text-white rounded-full text-sm md:text-lg font-medium hover:bg-slate-800 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 w-[90%] md:w-auto"
-          >
-            Join Waitlist
-          </button>
-
-          <a href="#experience" className="px-6 py-4 bg-white text-slate-900 border border-slate-900 rounded-full text-sm md:text-lg font-medium hover:bg-slate-50 hover:border-slate-300 transition-all duration-300 w-[90%] md:w-auto">
-            See it in action
-          </a>
+         <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-white/60 md:to-white/90" aria-hidden="true"></div>
         </div>
-      </div>
 
-      {/* Fade at bottom to blend with any potential following content */}
-      <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-white to-transparent"></div>
+        <div className="max-w-6xl mx-auto px-6 text-center relative z-10">
+
+         {/* Main Heading matching the 'Wonderful' layout */}
+         <h1 className="px-4 md:px-20 text-[2rem] md:text-[4rem] lg:text-[4rem] font-regular tracking-tight text-slate-800 leading-[1.3] mb-16">
+           Human-like Voice AI finally at a price every business can use.
+         </h1>
+
+
+
+         {/* Buttons */}
+         <div className="mt-8 flex flex-col md:flex-row items-center justify-center gap-4">
+           <button
+             onClick={() => navigate('/waitlist')}
+             className="px-6 py-4 bg-slate-950 text-white rounded-full text-sm md:text-lg font-medium hover:bg-slate-800 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 w-[90%] md:w-auto focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-950"
+             aria-label="Join the waitlist for SuperBlue AI"
+           >
+             Join Waitlist
+           </button>
+
+           <a href="#experience" className="px-6 py-4 bg-white text-slate-900 border border-slate-900 rounded-full text-sm md:text-lg font-medium hover:bg-slate-50 hover:border-slate-300 transition-all duration-300 w-[90%] md:w-auto focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900" aria-label="See SuperBlue AI in action">
+             See it in action
+           </a>
+         </div>
+        </div>
+
+        {/* Fade at bottom to blend with any potential following content */}
+        <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-white to-transparent" aria-hidden="true"></div>
     </section>
   );
 };

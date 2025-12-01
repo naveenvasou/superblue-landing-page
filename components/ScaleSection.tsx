@@ -21,10 +21,10 @@ const stats = [
 
 const ScaleSection: React.FC = () => {
   return (
-    <section className="py-32 bg-slate-950 relative overflow-hidden text-white">
+    <section className="py-32 bg-slate-950 relative overflow-hidden text-white" aria-labelledby="scale-heading">
 
       {/* Background Ambience */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
         {/* Glowing Orb Top Left */}
         <div className="absolute top-[-20%] left-[-10%] w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-[120px] opacity-50" />
         {/* Glowing Orb Bottom Right */}
@@ -44,7 +44,7 @@ const ScaleSection: React.FC = () => {
 
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <h2 className="text-3xl md:text-5xl font-medium tracking-tight mb-6">
+          <h2 id="scale-heading" className="text-3xl md:text-5xl font-medium tracking-tight mb-6">
             Built for <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-blue-600">Real-World Scale</span>
           </h2>
           <p className="text-slate-400 text-lg max-w-2xl mx-auto">
