@@ -1,9 +1,9 @@
 
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import PilotDialog from './PilotDialog';
 
 const CTASection: React.FC = () => {
-  const navigate = useNavigate();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   return (
     <section className="relative w-full py-32 md:py-48 bg-gradient-to-b from-white via-blue-50/30 to-indigo-100/40 overflow-hidden flex flex-col items-center justify-center">
 
@@ -15,12 +15,17 @@ const CTASection: React.FC = () => {
         </h2>
 
         <button
-          onClick={() => navigate('/waitlist')}
+          onClick={() => setIsDialogOpen(true)}
           className="group relative inline-flex items-center justify-center px-10 py-4 bg-slate-950 text-white rounded-full text-lg font-medium overflow-hidden transition-all duration-300 hover:bg-slate-900 hover:scale-105 shadow-xl hover:shadow-2xl hover:shadow-blue-900/20"
         >
-          <span className="relative z-10">Book a demo</span>
+          <span className="relative z-10">Start a pilot</span>
           <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </button>
+
+        <PilotDialog
+          isOpen={isDialogOpen}
+          onClose={() => setIsDialogOpen(false)}
+        />
       </div>
 
       {/* Watermark Background */}

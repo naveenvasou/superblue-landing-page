@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import PilotDialog from './PilotDialog';
 
 
 const Hero: React.FC = () => {
   const navigate = useNavigate();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   return (
     <section className="relative w-full pt-18 md:pt-48 md:pb-24 overflow-hidden flex flex-col items-center justify-center min-h-[70vh] md:min-h-[80vh] bg-white">
 
@@ -62,15 +64,20 @@ const Hero: React.FC = () => {
         {/* Buttons */}
         <div className="mt-8 flex flex-col md:flex-row items-center justify-center gap-4">
           <button
-            onClick={() => navigate('/waitlist')}
-            className="px-6 py-4 bg-slate-950 text-white rounded-full text-sm md:text-lg font-medium hover:bg-slate-800 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 w-[90%] md:w-auto"
+            onClick={() => setIsDialogOpen(true)}
+            className="px-6 py-4 bg-slate-950 text-white rounded-full text-sm md:text-lg font-medium hover:bg-slate-800 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-0.5 w-[90%] md:w-48"
           >
-            Book a demo
+            Start a pilot
           </button>
 
-          <a href="#experience" className="px-6 py-4 bg-white text-slate-900 border border-slate-900 rounded-full text-sm md:text-lg font-medium hover:bg-slate-50 hover:border-slate-300 transition-all duration-300 w-[90%] md:w-auto">
+          <a href="#experience" className="px-6 py-4 bg-white text-slate-900 border border-slate-900 rounded-full text-sm md:text-lg font-medium hover:bg-slate-50 hover:border-slate-300 transition-all duration-300 w-[90%] md:w-48">
             See it in action
           </a>
+
+          <PilotDialog
+            isOpen={isDialogOpen}
+            onClose={() => setIsDialogOpen(false)}
+          />
         </div>
       </div>
 

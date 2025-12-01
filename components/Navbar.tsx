@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import SuperblueLogo from './ui/logo';
+import PilotDialog from './PilotDialog';
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -56,10 +58,10 @@ const Navbar: React.FC = () => {
           {/* CTA Button */}
           <div className="hidden md:block">
             <button
-              onClick={() => navigate('/waitlist')}
+              onClick={() => setIsDialogOpen(true)}
               className="px-6 py-2.5 rounded-full border border-slate-900 text-slate-900 text-[15px] font-medium hover:border-slate-900 transition-colors duration-300"
             >
-              Book a demo
+              Start a pilot
             </button>
           </div>
 
@@ -81,16 +83,21 @@ const Navbar: React.FC = () => {
           <div className="pt-4">
             <button
               onClick={() => {
-                navigate('/waitlist');
+                setIsDialogOpen(true);
                 setMobileMenuOpen(false);
               }}
               className="w-full py-4 rounded-full bg-slate-900 text-white font-medium text-lg"
             >
-              Book a demo
+              Start a pilot
             </button>
           </div>
         </div>
       )}
+
+      <PilotDialog
+        isOpen={isDialogOpen}
+        onClose={() => setIsDialogOpen(false)}
+      />
     </>
   );
 };
