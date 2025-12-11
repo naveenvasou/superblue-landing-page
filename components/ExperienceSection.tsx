@@ -3,12 +3,50 @@ import { Phone, Mic, PhoneOff } from 'lucide-react';
 import Orb from '@/components/ui/orb';
 import { PUBLIC_WS_URL } from '@/lib/api';
 
-// Constants
+// Constants matching VoiceCallWidget
 const SAMPLE_RATE = 16000; // Target sample rate for sending to backend
 const PLAYBACK_SAMPLE_RATE = 24000; // Gemini usually responds with 24kHz
-const WORKLET_URL = '/audio-processor.worklet.js';
+const BUFFER_SIZE = 2048;
 
-// Helper: Convert Int16 to Float32 (still needed for playback)
+// Helper: Downsample buffer (Copied from VoiceCallWidget)
+const downsampleBuffer = (buffer: Float32Array, sampleRate: number, outSampleRate: number) => {
+  if (outSampleRate === sampleRate) {
+    return buffer;
+  }
+  if (outSampleRate > sampleRate) {
+    throw new Error("downsampling rate show be smaller than original sample rate");
+  }
+  const sampleRateRatio = sampleRate / outSampleRate;
+  const newLength = Math.round(buffer.length / sampleRateRatio);
+  const result = new Float32Array(newLength);
+  let offsetResult = 0;
+  let offsetBuffer = 0;
+  while (offsetResult < result.length) {
+    const nextOffsetBuffer = Math.round((offsetResult + 1) * sampleRateRatio);
+    // Use average value of skipped samples
+    let accum = 0, count = 0;
+    for (let i = offsetBuffer; i < nextOffsetBuffer && i < buffer.length; i++) {
+      accum += buffer[i];
+      count++;
+    }
+    result[offsetResult] = accum / count;
+    offsetResult++;
+    offsetBuffer = nextOffsetBuffer;
+  }
+  return result;
+};
+
+// Helper: Convert Float32 to Int16 (Copied from VoiceCallWidget)
+const convertFloat32ToInt16 = (buffer: Float32Array) => {
+  let l = buffer.length;
+  const buf = new Int16Array(l);
+  while (l--) {
+    buf[l] = Math.min(1, Math.max(-1, buffer[l])) * 0x7FFF;
+  }
+  return buf;
+};
+
+// Helper: Convert Int16 to Float32 (Copied from VoiceCallWidget)
 const convertInt16ToFloat32 = (buffer: ArrayBuffer) => {
   const int16 = new Int16Array(buffer);
   const float32 = new Float32Array(int16.length);
@@ -45,13 +83,13 @@ const ExperienceSection: React.FC = () => {
   const audioContextRef = useRef<AudioContext | null>(null);
   const mediaStreamRef = useRef<MediaStream | null>(null);
   const sourceNodeRef = useRef<MediaStreamAudioSourceNode | null>(null);
-  const workletNodeRef = useRef<AudioWorkletNode | null>(null);
+  const processorRef = useRef<ScriptProcessorNode | null>(null); // Replaced Worklet with Processor
   const isMutedRef = useRef<boolean>(false);
 
-  // New refs for buffering and playback
+  // New refs for buffering and playback matching VoiceCallWidget
   const nextStartTimeRef = useRef<number>(0);
+  const inputBufferRef = useRef<Float32Array>(new Float32Array(0));
   const playbackSourcesRef = useRef<AudioBufferSourceNode[]>([]);
-  const audioBufferPoolRef = useRef<AudioBuffer[]>([]);
 
 
   // Cleanup on unmount
@@ -74,28 +112,20 @@ const ExperienceSection: React.FC = () => {
       }
       playbackSourcesRef.current = [];
       if (audioContextRef.current) {
-        // small headroom so new audio starts cleanly
-        nextStartTimeRef.current = audioContextRef.current.currentTime + 0.005;  // 5ms - minimal headroom
+        // small headroom so new audio starts cleanly - MATCHED VoiceCallWidget (0.02s)
+        nextStartTimeRef.current = audioContextRef.current.currentTime + 0.02;
       }
     } catch (err) {
       console.warn("stopAllAssistantAudio error:", err);
     }
   };
 
-  // Play audio from Float32Array
+  // Play audio from Float32Array - MATCHED VoiceCallWidget implementation
   const playAudio = (audioData: Float32Array) => {
     if (!audioContextRef.current) return;
     const context = audioContextRef.current;
 
-    // Reuse or create buffer from pool
-    let buffer = audioBufferPoolRef.current.find(b => b.length === audioData.length);
-    if (buffer) {
-      // Reuse existing buffer
-      audioBufferPoolRef.current = audioBufferPoolRef.current.filter(b => b !== buffer);
-    } else {
-      // Create new buffer
-      buffer = context.createBuffer(1, audioData.length, PLAYBACK_SAMPLE_RATE);
-    }
+    const buffer = context.createBuffer(1, audioData.length, PLAYBACK_SAMPLE_RATE);
     buffer.getChannelData(0).set(audioData);
 
     const source = context.createBufferSource();
@@ -105,10 +135,10 @@ const ExperienceSection: React.FC = () => {
     // Add to active sources
     playbackSourcesRef.current.push(source);
 
-    // Schedule playback
+    // Schedule playback - MATCHED VoiceCallWidget (0.05s buffer)
     const currentTime = context.currentTime;
     if (nextStartTimeRef.current < currentTime) {
-      nextStartTimeRef.current = currentTime + 0.01;  // 10ms - minimal safe buffer
+      nextStartTimeRef.current = currentTime + 0.05;
     }
 
     source.start(nextStartTimeRef.current);
@@ -117,10 +147,6 @@ const ExperienceSection: React.FC = () => {
     source.onended = () => {
       playbackSourcesRef.current = playbackSourcesRef.current.filter((s) => s !== source);
       try { source.disconnect(); } catch (_) { }
-      // Return buffer to pool (max 10 buffers to avoid memory growth)
-      if (buffer && audioBufferPoolRef.current.length < 10) {
-        audioBufferPoolRef.current.push(buffer);
-      }
     };
   };
 
@@ -151,7 +177,7 @@ const ExperienceSection: React.FC = () => {
     }
   };
 
-  // Start capturing microphone
+  // Start capturing microphone - REPLACED with ScriptProcessor implementation
   const startAudioCapture = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -166,34 +192,45 @@ const ExperienceSection: React.FC = () => {
       mediaStreamRef.current = stream;
 
       if (!audioContextRef.current) {
-        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)({
-          latencyHint: 'interactive',  // Optimize for lowest possible latency
-          sampleRate: PLAYBACK_SAMPLE_RATE  // Explicit sample rate to avoid resampling
-        });
+        // Removed forced sampleRate: 24000 to match VoiceCallWidget's native behavior
+        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
       }
       if (audioContextRef.current.state === 'suspended') {
         audioContextRef.current.resume();
       }
 
       const context = audioContextRef.current;
-
-      // Load the AudioWorklet module
-      await context.audioWorklet.addModule(WORKLET_URL);
-
       const source = context.createMediaStreamSource(stream);
-      const workletNode = new AudioWorkletNode(context, 'audio-capture-processor');
+      const processor = context.createScriptProcessor(BUFFER_SIZE, 1, 1);
 
-      source.connect(workletNode);
-      // Note: AudioWorkletNode doesn't need to connect to destination for processing
-      // workletNode.connect(context.destination); // Commented out to avoid feedback
+      source.connect(processor);
+      processor.connect(context.destination);
 
       sourceNodeRef.current = source;
-      workletNodeRef.current = workletNode;
+      processorRef.current = processor;
 
-      // Listen for processed audio chunks from the worklet
-      workletNode.port.onmessage = (event) => {
-        if (event.data.type === 'audio' && wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
-          const int16Data = event.data.data;
+      processor.onaudioprocess = (e) => {
+        if (isMutedRef.current || !wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) return;
+
+        const inputData = e.inputBuffer.getChannelData(0);
+
+        // Resample to 16kHz
+        const downsampled = downsampleBuffer(inputData, context.sampleRate, SAMPLE_RATE);
+
+        // Append to buffer
+        const newBuffer = new Float32Array(inputBufferRef.current.length + downsampled.length);
+        newBuffer.set(inputBufferRef.current);
+        newBuffer.set(downsampled, inputBufferRef.current.length);
+        inputBufferRef.current = newBuffer;
+
+        // Process 512-sample chunks (Silero VAD requirement)
+        const CHUNK_SIZE = 512;
+
+        while (inputBufferRef.current.length >= CHUNK_SIZE) {
+          const chunk = inputBufferRef.current.slice(0, CHUNK_SIZE);
+          inputBufferRef.current = inputBufferRef.current.slice(CHUNK_SIZE);
+
+          const int16Data = convertFloat32ToInt16(chunk);
 
           // Send to server with 0x02 prefix
           const message = new Uint8Array(1 + int16Data.byteLength);
@@ -204,7 +241,7 @@ const ExperienceSection: React.FC = () => {
         }
       };
 
-      console.log('Audio capture started with AudioWorklet');
+      console.log('Audio capture started with ScriptProcessor');
     } catch (error) {
       console.error('Error starting audio capture:', error);
       alert('Failed to access microphone. Please check permissions.');
@@ -214,9 +251,9 @@ const ExperienceSection: React.FC = () => {
 
   // Stop audio capture
   const stopAudioCapture = () => {
-    if (workletNodeRef.current) {
-      workletNodeRef.current.disconnect();
-      workletNodeRef.current = null;
+    if (processorRef.current) {
+      processorRef.current.disconnect();
+      processorRef.current = null;
     }
     if (sourceNodeRef.current) {
       sourceNodeRef.current.disconnect();
@@ -317,6 +354,7 @@ const ExperienceSection: React.FC = () => {
 
     // Reset audio scheduling refs
     nextStartTimeRef.current = 0;
+    inputBufferRef.current = new Float32Array(0); // Reset buffer
 
     setIsCallActive(false);
     setConnectionStatus('disconnected');
@@ -467,13 +505,6 @@ const ExperienceSection: React.FC = () => {
                             const newMutedState = !isMuted;
                             setIsMuted(newMutedState);
                             isMutedRef.current = newMutedState;
-                            // Send mute state to worklet
-                            if (workletNodeRef.current) {
-                              workletNodeRef.current.port.postMessage({
-                                type: 'mute',
-                                value: newMutedState
-                              });
-                            }
                           }}
                           className={`w-14 h-14 rounded-full flex items-center justify-center transition-all duration-200 ${isMuted ? 'bg-white text-slate-900' : 'bg-white/10 text-white hover:bg-white/20'}`}
                         >
