@@ -52,7 +52,7 @@ const Navbar: React.FC = () => {
           <div className="hidden md:flex items-center space-x-10 text-[16px] text-slate-600 font-normal">
             <button onClick={() => handleNavigation('#features')} className="hover:text-slate-900 transition-colors">Features</button>
             <button onClick={() => handleNavigation('#use-cases')} className="hover:text-slate-900 transition-colors">Use Cases</button>
-
+            <button onClick={() => handleNavigation('#pricing')} className="hover:text-slate-900 transition-colors">Pricing</button>
           </div>
 
           {/* CTA Button */}
@@ -80,6 +80,7 @@ const Navbar: React.FC = () => {
         <div className="fixed top-[58px] left-0 right-0 bg-white/70 backdrop-blur-lg border-b border-slate-200/60 p-6 md:hidden flex flex-col space-y-4 shadow-lg h-screen z-40">
           <button onClick={() => handleNavigation('#features')} className="text-xl font-medium text-slate-800 text-left">Features</button>
           <button onClick={() => handleNavigation('#use-cases')} className="text-xl font-medium text-slate-800 text-left">Use Cases</button>
+          <button onClick={() => handleNavigation('#pricing')} className="text-xl font-medium text-slate-800 text-left">Pricing</button>
           <div className="pt-4">
             <button
               onClick={() => {

@@ -5,6 +5,8 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import LandingPage from './components/LandingPage';
 import WaitlistPage from './components/WaitlistPage';
+import WebIntegrationPage from './components/WebIntegrationPage';
+import EcomDemoPage from './components/EcomDemoPage';
 
 const App: React.FC = () => {
   return (
@@ -18,6 +20,8 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/waitlist" element={<WaitlistPage />} />
+            <Route path="/web" element={<WebIntegrationPage />} />
+            <Route path="/ecom-demo" element={<EcomDemoPage />} />
           </Routes>
         </main>
         <Footer />

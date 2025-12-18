@@ -5,7 +5,9 @@ import ExperienceSection from './ExperienceSection';
 import FeaturesSection from './FeaturesSection';
 import UseCasesSectionV3 from './UseCasesSectionV3';
 import ScaleSection from './ScaleSection';
+import PricingSection from './PricingSection';
 import CTASection from './CTASection';
+import RealCallsSection from './RealCallsSection';
 
 const LandingPage: React.FC = () => {
     return (
@@ -14,6 +16,7 @@ const LandingPage: React.FC = () => {
             <StatsSection />
             <ExperienceSection />
             <FeaturesSection />
+            <RealCallsSection />
             <UseCasesSectionV3 />
             <ScaleSection />
             <CTASection />
