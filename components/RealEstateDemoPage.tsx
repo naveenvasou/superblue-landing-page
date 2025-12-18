@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 
-const EcomDemoPage: React.FC = () => {
+
+
+const RealEstateDemoPage: React.FC = () => {
     useEffect(() => {
         // 1. Create the script element
         const script = document.createElement('script');
@@ -18,13 +20,13 @@ const EcomDemoPage: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-white flex flex-col items-center justify-center">
-            <h1 className="text-2xl font-bold">Ecommerce Demo</h1>
+            <h1 className="text-2xl font-bold">Real Estate Demo</h1>
             <p className="text-gray-600">The Voice AI widget should appear in the corner.</p>
 
             {/* The custom element now works with the 'agent-id' prop */}
-            <superblue-voiceai agent-id="agent_nlvhvmigsfdw"></superblue-voiceai>
+            <superblue-voiceai agent-id="agent_ojbqujkrhuwo"></superblue-voiceai>
         </div>
     );
 };
 
-export default EcomDemoPage;
+export default RealEstateDemoPage;

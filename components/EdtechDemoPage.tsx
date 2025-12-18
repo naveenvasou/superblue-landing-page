@@ -1,15 +1,6 @@
 import React, { useEffect } from 'react';
 
-// This tells TypeScript that <superblue-voiceai> is a valid HTML element
-declare global {
-    namespace JSX {
-        interface IntrinsicElements {
-            'superblue-voiceai': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
-                'agent-id': string;
-            };
-        }
-    }
-}
+
 
 const EdtechDemoPage: React.FC = () => {
     useEffect(() => {

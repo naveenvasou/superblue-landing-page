@@ -8,6 +8,7 @@ import WaitlistPage from './components/WaitlistPage';
 import WebIntegrationPage from './components/WebIntegrationPage';
 import EcomDemoPage from './components/EcomDemoPage';
 import EdtechDemoPage from './components/EdtechDemoPage';
+import RealEstateDemoPage from './components/RealEstateDemoPage';
 
 const App: React.FC = () => {
   return (
@@ -24,6 +25,7 @@ const App: React.FC = () => {
             <Route path="/web" element={<WebIntegrationPage />} />
             <Route path="/ecom-demo" element={<EcomDemoPage />} />
             <Route path="/edtech-demo" element={<EdtechDemoPage />} />
+            <Route path="/real-estate-demo" element={<RealEstateDemoPage />} />
           </Routes>
         </main>
         <Footer />
