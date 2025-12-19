@@ -3,7 +3,7 @@ import { Zap, ShieldCheck, Hourglass } from 'lucide-react';
 
 const stats = [
     {
-        value: '<500 ms',
+        value: '<800 ms',
         label: 'Response Latency',
         icon: Zap,
     },

@@ -4,37 +4,47 @@ import { Play, Pause, Volume2, ChevronRight, Activity } from 'lucide-react';
 
 const industries = [
     {
+        id: 'banking',
+        label: 'Real Estate',
+        title: 'Website Assistant',
+        description: 'Property inquiries and lead booking',
+        duration: '3:33',
+        audioUrl: 'https://storage.googleapis.com/superblue-call-recordings/recordings/conv_6yb218sktu8t.wav',
+        callType: 'webcall',
+        language: 'Hindi',
+    },
+    {
         id: 'real-estate',
         label: 'Real Estate',
         title: 'Lead Qualification',
-        description: 'Automated scheduling & property inquiries',
+        description: 'Qualify your leads and book appointments',
         duration: '2:19',
         audioUrl: 'https://storage.googleapis.com/superblue-call-recordings/recordings/conv_ev9cd6b766wr.wav',
+        callType: 'outbound',
+        language: 'English',
     },
+    
     {
         id: 'edtech',
         label: 'EdTech',
         title: 'Student Counseling',
         description: 'Course information & enrollment support',
-        duration: '2:15',
-        audioUrl: 'https://storage.googleapis.com/superblue-call-recordings/recordings/conv_18x2ya2wtvp8.wav',
+        duration: '2:28',
+        audioUrl: 'https://storage.googleapis.com/superblue-call-recordings/recordings/conv_9d9yzzodosqw.wav',
+        callType: 'outbound',
+        language: 'English',
     },
     {
         id: 'ecommerce',
         label: 'E-commerce',
-        title: 'Order Support',
+        title: 'Shopping assistant',
         description: 'Tracking, returns & modifications',
-        duration: '0:55',
-        audioUrl: 'https://storage.googleapis.com/superblue-call-recordings/recordings/conv_18x2ya2wtvp8.wav',
-    },
-    {
-        id: 'banking',
-        label: 'Banking',
-        title: 'Loan Inquiry',
-        description: 'Eligibility checks & application help',
-        duration: '1:20',
-        audioUrl: 'https://storage.googleapis.com/superblue-call-recordings/recordings/conv_18x2ya2wtvp8.wav',
+        duration: '2:33',
+        audioUrl: 'https://storage.googleapis.com/superblue-call-recordings/recordings/conv_0x9z1ncai85k.wav',
+        callType: 'webcall',
+        language: 'English',
     }
+    
 ];
 
 const RealCallsSection: React.FC = () => {
@@ -109,10 +119,12 @@ const RealCallsSection: React.FC = () => {
     };
 
     return (
-        <section className="py-24 bg-white relative overflow-hidden">
+        <section className="py-24 relative overflow-hidden bg-gradient-to-b from-[#f7f9ff] via-white to-[#eef3ff]">
             {/* Ambient Background */}
             <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-50/50 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-50/50 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(59,130,246,0.08),transparent_35%),radial-gradient(circle_at_80%_10%,rgba(99,102,241,0.08),transparent_30%),radial-gradient(circle_at_50%_80%,rgba(59,130,246,0.06),transparent_30%)] pointer-events-none" />
+            <div className="absolute inset-8 mx-3 rounded-[32px] border border-white/50 shadow-[0_10px_80px_rgba(59,130,246,0.08)] bg-white/30 backdrop-blur-[2px] pointer-events-none" />
 
             <div className="container mx-auto px-4 relative z-10">
                 {/* Header */}
@@ -147,10 +159,10 @@ const RealCallsSection: React.FC = () => {
                                     key={industry.id}
                                     onClick={() => setActiveTab(industry.id)}
                                     className={`
-                                        w-full text-left px-6 py-5 rounded-xl transition-all duration-300 group relative overflow-hidden border
+                                        w-full text-left px-6 py-5 rounded-xl transition-all duration-300 group relative overflow-hidden border backdrop-blur
                                         ${activeTab === industry.id
-                                            ? 'bg-white border-blue-100 shadow-xl shadow-blue-900/5'
-                                            : 'bg-transparent border-transparent hover:bg-gray-50'}
+                                            ? 'bg-white/90 border-blue-100 shadow-xl shadow-blue-900/10 ring-1 ring-blue-100/80'
+                                            : 'bg-white/50 border-white/60 hover:bg-white/70 hover:border-blue-50'}
                                     `}
                                 >
                                     <div className="relative z-10 flex items-center justify-between">
@@ -185,7 +197,7 @@ const RealCallsSection: React.FC = () => {
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.4 }}
-                                className="relative bg-white/60 backdrop-blur-2xl border border-white/50 rounded-3xl p-8 md:p-12 shadow-2xl shadow-gray-200/50"
+                                className="relative bg-white/70 backdrop-blur-2xl border border-white/60 rounded-3xl p-8 md:p-12 shadow-2xl shadow-blue-900/10 ring-1 ring-white/60"
                             >
                                 <audio
                                     ref={audioRef}
@@ -198,9 +210,9 @@ const RealCallsSection: React.FC = () => {
                                     {/* Info Header */}
                                     <div className="flex justify-between items-start">
                                         <div>
-                                            <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 rounded-full text-blue-600 text-xs font-semibold tracking-wide uppercase mb-3">
+                                            <div className="inline-flex items-center gap-2 px-3 py-1 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-full text-blue-700 text-xs font-semibold tracking-wide uppercase mb-3 shadow-sm shadow-blue-100">
                                                 <Activity size={14} />
-                                                Live Recording
+                                                {activeIndustry.callType}
                                             </div>
                                             <h3 className="text-3xl font-bold text-gray-900 mb-2">{activeIndustry.title}</h3>
                                             <p className="text-gray-500 text-lg">{activeIndustry.description}</p>
@@ -212,7 +224,7 @@ const RealCallsSection: React.FC = () => {
                                     </div>
 
                                     {/* Visualization & Controls */}
-                                    <div className="bg-gray-50/50 rounded-2xl p-6 border border-gray-100/50">
+                                    <div className="bg-white/70 rounded-2xl p-6 border border-white/60 shadow-lg shadow-blue-900/5 backdrop-blur">
                                         <div className="flex items-center gap-6">
                                             <button
                                                 onClick={togglePlay}
@@ -236,8 +248,8 @@ const RealCallsSection: React.FC = () => {
                                                             <div
                                                                 key={i}
                                                                 className={`rounded-full flex-1 transition-all duration-300 ease-in-out ${isActive
-                                                                        ? 'bg-blue-600 opacity-100'
-                                                                        : 'bg-gray-200 group-hover:bg-gray-300'
+                                                                    ? 'bg-blue-600 opacity-100'
+                                                                    : 'bg-gray-200 group-hover:bg-gray-300'
                                                                     }`}
                                                                 style={{
                                                                     height: isPlaying && isActive ? `${height + Math.random() * 20}%` : `${height}%`,
@@ -258,9 +270,9 @@ const RealCallsSection: React.FC = () => {
 
                                     {/* Stats Badge */}
                                     <div className="flex items-center justify-center">
-                                        <div className="inline-flex items-center gap-2 text-gray-400 text-sm">
+                                        <div className="inline-flex items-center gap-2 text-gray-500 text-sm bg-white/80 border border-white/70 px-4 py-2 rounded-full shadow-sm shadow-blue-900/5 backdrop-blur">
                                             <Volume2 size={16} />
-                                            <span>High Fidelity Neural Voice • English (US)</span>
+                                            <span>{activeIndustry.language}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -268,19 +280,7 @@ const RealCallsSection: React.FC = () => {
                         </div>
                     </div>
 
-                    {/* Footer Stat */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3 }}
-                        className="mt-16 text-center"
-                    >
-                        <div className="inline-block bg-white border border-gray-100 shadow-sm rounded-full px-8 py-3">
-                            <span className="text-gray-500">Proven Results: </span>
-                            <span className="text-gray-900 font-bold">80% higher conversion rate</span>
-                            <span className="text-gray-500"> vs human agents</span>
-                        </div>
-                    </motion.div>
+                    
                 </div>
             </div>
         </section>
