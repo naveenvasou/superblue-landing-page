@@ -4,16 +4,6 @@ import { Play, Pause, Volume2, ChevronRight, Activity } from 'lucide-react';
 
 const industries = [
     {
-        id: 'banking',
-        label: 'Real Estate',
-        title: 'Website Assistant',
-        description: 'Property inquiries and lead booking',
-        duration: '3:33',
-        audioUrl: 'https://storage.googleapis.com/superblue-call-recordings/recordings/conv_6yb218sktu8t.wav',
-        callType: 'webcall',
-        language: 'Hindi',
-    },
-    {
         id: 'real-estate',
         label: 'Real Estate',
         title: 'Lead Qualification',
@@ -23,7 +13,16 @@ const industries = [
         callType: 'outbound',
         language: 'English',
     },
-    
+    {
+        id: 'banking',
+        label: 'Real Estate',
+        title: 'Website Assistant',
+        description: 'Property inquiries and lead booking',
+        duration: '3:33',
+        audioUrl: 'https://storage.googleapis.com/superblue-call-recordings/recordings/conv_6yb218sktu8t.wav',
+        callType: 'webcall',
+        language: 'Hindi',
+    },
     {
         id: 'edtech',
         label: 'EdTech',
